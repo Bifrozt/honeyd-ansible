@@ -1,0 +1,14 @@
+---
+# Compile Honeyd
+- name: Honeyd autogen
+  shell: 'cd /tmp/honeyd && ./autogen.sh'
+
+- name: Honeyd configure
+  shell: 'cd /tmp/honeyd && ./configure'
+
+- name: Honeyd make
+  shell: 'cd /tmp/honeyd && make'
+
+- name: Honeyd make install
+  shell: 'cd /tmp/honeyd && make install'
+
