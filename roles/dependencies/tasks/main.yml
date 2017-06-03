@@ -1,0 +1,32 @@
+---
+# Converts Ubuntu into a honeypot router
+- name: Running apt-get update
+  apt: update_cache=yes
+
+- name: Install honeyd dependencies for Ubuntu
+  apt: name={{ item }} state=present
+  with_items:
+    - automake
+    - bison
+    - build-essential
+    - farpd
+    - flex
+    - gcc
+    - git
+    - htop
+    - libdumbnet-dev
+    - libedit-dev
+    - libevent-dev
+    - libpcap-dev
+    - libpcre3-dev
+    - libtool
+    - make
+    - moreutils
+    - nmap
+    - p0f
+    - python
+    - vim
+    - zlib1g-dev
+  when:
+    ansible_distribution == "Ubuntu"
+
