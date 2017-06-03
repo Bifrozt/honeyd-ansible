@@ -1,0 +1,4 @@
+---
+# Grab a clone of the honeyd source code
+- name: Grabbing the Honeyd source code
+  git: repo=https://github.com/Bifrozt/Honeyd.git dest=/tmp/honeyd
