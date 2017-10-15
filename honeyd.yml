@@ -2,6 +2,7 @@
 # Resolves dependencies, compiles source code and installs honeyd on Ubuntu. 
 - name: Install honeyd
   hosts: localhost
+  become: true
   roles:
     - dependencies
     - source
