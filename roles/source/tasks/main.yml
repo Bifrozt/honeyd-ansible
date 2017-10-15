@@ -1,4 +1,9 @@
 ---
-# Grab a clone of the honeyd source code
+- name: Check if source code is needed
+  stat: path=/usr/bin/honeyd
+  register: honeyd_installed
+
 - name: Grabbing the Honeyd source code
+  when: honeyd_installed.stat.exists == False
   git: repo=https://github.com/Bifrozt/Honeyd.git dest=/tmp/honeyd
+

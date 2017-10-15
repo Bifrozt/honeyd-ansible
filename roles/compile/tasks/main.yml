@@ -1,14 +1,21 @@
 ---
-# Compile Honeyd
+- name: Check if compilation is needed
+  stat: path=/usr/bin/honeyd
+  register: honeyd_installed
+
 - name: Honeyd autogen
+  when: honeyd_installed.stat.exists == False
   shell: 'cd /tmp/honeyd && ./autogen.sh'
 
 - name: Honeyd configure
+  when: honeyd_installed.stat.exists == False
   shell: 'cd /tmp/honeyd && ./configure'
 
 - name: Honeyd make
+  when: honeyd_installed.stat.exists == False
   shell: 'cd /tmp/honeyd && make'
 
 - name: Honeyd make install
+  when: honeyd_installed.stat.exists == False
   shell: 'cd /tmp/honeyd && make install'
 

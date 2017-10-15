@@ -1,9 +1,14 @@
 ---
-# Converts Ubuntu into a honeypot router
+- name: Check if honeyd already is installed
+  stat: path=/usr/bin/honeyd
+  register: honeyd_installed
+
 - name: Running apt-get update
+  when: honeyd_installed.stat.exists == False
   apt: update_cache=yes
 
 - name: Install honeyd dependencies for Ubuntu
+  when: honeyd_installed.stat.exists == False
   apt: name={{ item }} state=present
   with_items:
     - automake
@@ -29,4 +34,5 @@
     - zlib1g-dev
   when:
     ansible_distribution == "Ubuntu"
+
 
