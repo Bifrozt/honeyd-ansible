@@ -1,6 +1,10 @@
 --- # Creates and configures required parts of the environment
-- name: Setting up system account for honeyd
-  shell: 'adduser --system --no-create-home --group honeyd'
+- name: Create honeyd system user if missing
+  user:
+    name: honeyd
+    createhome: no
+    shell: /bin/false
+    system: yes
 
 - name: Checking for honeyd log directory
   stat: path=/var/log/honeyd
@@ -38,4 +42,4 @@
     url: https://svn.nmap.org/nmap/nmap-os-db
     dest: /etc/honeyd/nmap-os-db
     mode: 0444
-
+ 
