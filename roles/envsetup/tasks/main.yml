@@ -2,7 +2,12 @@
 - name: Setting up system account for honeyd
   shell: 'adduser --system --no-create-home --group honeyd'
 
+- name: Checking for honeyd log directory
+  stat: path=/var/log/honeyd
+  register: var_log_honeyd
+
 - name: Setting up log directory /var/log/honeyd
+  when: var_log_honeyd.stat.exists == False
   file:
     path: /var/log/honeyd
     state: directory
@@ -10,11 +15,27 @@
     group: honeyd
     mode: 0755
 
+- name: Checking for honeyd configuration directory
+  stat: path=/etc/honeyd
+  register: etc_honeyd
+
 - name: Setting up configuration directory /etc/honeyd
+  when: etc_honeyd.stat.exists == False
   file:
     path: /etc/honeyd
     state: directory
     owner: honeyd
     group: honeyd
     mode: 0755
- 
+
+- name: Check for Nmap OS fingerprint file
+  stat: path=/etc/honeyd/nmap-os-db
+  register: nmap_os_db
+
+- name: Downloading Nmap OS fingerprints
+  when: nmap_os_db.stat.exists == False
+  get_url:
+    url: https://svn.nmap.org/nmap/nmap-os-db
+    dest: /etc/honeyd/nmap-os-db
+    mode: 0444
+
