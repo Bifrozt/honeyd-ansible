@@ -6,3 +6,5 @@
     - dependencies
     - source
     - compile
+    - envsetup
+

@@ -1,0 +1,20 @@
+--- # Creates and configures required parts of the environment
+- name: Setting up system account for honeyd
+  shell: 'adduser --system --no-create-home --group honeyd'
+
+- name: Setting up log directory /var/log/honeyd
+  file:
+    path: /var/log/honeyd
+    state: directory
+    owner: honeyd
+    group: honeyd
+    mode: 0755
+
+- name: Setting up configuration directory /etc/honeyd
+  file:
+    path: /etc/honeyd
+    state: directory
+    owner: honeyd
+    group: honeyd
+    mode: 0755
+ 
